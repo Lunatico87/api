@@ -27,33 +27,37 @@ formulario.addEventListener("submit",async(event)=>{
   
   document.getElementById("resultado").innerHTML = "Resultado: " + montoRedondeado + " " + moneda.toUpperCase();
   
-  
-//crear grafico
-  const crearGrafico = ()=>{
-    const ctx = document.getElementById('myChart');
+  //Crear grafico
+const crearGrafico = ()=>{
+  const ctx = document.getElementById('myChart');
 
-      new Chart(ctx, {
-        type: 'line',
-        data:  {
-          labels: fecha.slice(0, 10),
-          datasets: [{
-            label: 'Historial últimos 10 días',
-            data: valores,
-            borderWidth: 2
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: false
-            }
+  // Reinicio de grafico al cambiar tipo de moneda
+if (window.myChart instanceof Chart) {
+  window.myChart.destroy();
+}
+
+window.myChart = new Chart(ctx, {
+      type: 'line',
+      data:  {
+        labels: fecha.slice(0, 10),
+        datasets: [{
+          label: 'Historial últimos 10 días',
+          data: valores,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
           }
-        },
-      });
-      ctx.style.backgroundColor='white'
-    }
-  
-    crearGrafico()
+        }
+      },
+    });
+    ctx.style.backgroundColor='white'
+  }
+  crearGrafico()
+
 }) 
 
 
